@@ -1,0 +1,7 @@
+<%init>
+  Hoo::SetMasonRequestObject( $m );
+
+  $local = ( $ENV{ HTTP_HOST } =~ /^bigdot$/ );
+
+  Hoo::HandleURL( { %ARGS } );
+</%init>

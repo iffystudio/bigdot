@@ -1,0 +1,136 @@
+<& /site/header.mas &>
+    <meta content="Tap the big dot. Faster is better." property="og:description">
+    <meta content="https://bigdot.iffy.studio/img/og/big_dot.png" property="og:image">
+    <meta content="630" property="og:image:height">
+    <meta content="1200" property="og:image:width">
+    <meta content="Big Dot" property="og:title">
+    <meta content="website" property="og:type">
+    <meta content="https://bigdot.iffy.studio/" property="og:url">
+    <style>
+      body, h1, h2, li, p, ul { line-height: 1; margin: 0; padding: 0; }
+
+      body, html { height: 100%; }
+
+      a { color: #000; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      body { background: #fff; font-family: -apple-system, 'Helvetica Neue', 'Lucida Grande', sans-serif; font-size: 16px; font-weight: 200; -moz-user-select: none; -webkit-user-select: none; }
+      h1 { font-size: 48px; padding-top: 30px; }
+      h2 { font-size: 32px; padding: 18px 0 4px; }
+      h1, h2 { font-weight: 100; }
+      iframe { border: 0; }
+      p { line-height: 1.4; }
+      ul { list-style-type: none; }
+
+      div.content { display: none; }
+      div.content > div { bottom: 32px; position: absolute; right: 32px; }
+      div.content > img { bottom: 64px; position: absolute; right: 30px; }
+      div.inner { margin: 0 auto; position: relative; width: 925px; }
+
+      #all { height: 100%; min-height: 630px; position: relative; }
+      #close { cursor: pointer; font-size: 24px; padding: 2px 10px; position: absolute; right: 0; top: 0; }
+      #copyright { float: right; }
+      #download { position: absolute; right: 0; top: 36px; }
+      #foot { background: #ccc; bottom: 0; box-sizing: border-box; left: 0; padding: 16px 0; position: absolute; right: 0; }
+      #head { height: 168px; }
+      #modal { background: #eee; box-sizing: border-box; display: none; height: 520px; left: 0; padding: 32px; position: absolute; right: 0; top: 168px; z-index: 2; }
+      #overlay { background: #000; bottom: 48px; display: none; filter: alpha( opacity=50 ); opacity: 0.5; left: 0; pointer-events: none; position: absolute; right: 0; top: 0; }
+      #video { margin-bottom: 24px; }
+
+      #copyright a:hover { text-decoration: none; }
+      #copyright a:hover span { text-decoration: underline; }
+
+      #foot li { border-right: 1px solid #000; display: inline; margin-right: 10px; padding-right: 10px; }
+      #foot li:last-child { border-width: 0; margin-right: 0; padding-right: 0; }
+      #foot ul { display: inline; }
+
+      #modal h2 { background: none; padding-top: 0; }
+      #modal p { padding-top: 18px; }
+    </style>
+    <title>Big Dot</title>
+  </head>
+  <body>
+    <div id="all">
+      <div class="inner">
+        <div id="head">
+          <h1>Big Dot</h1>
+          <h2>Available now on iOS.</h2>
+          <a href="https://itunes.apple.com/us/app/big-dot/id1040873627" id="download"><img height="43" src="/img/download.svg" width="145"></a>
+        </div>
+        <div id="video"><iframe height="520" src="https://player.vimeo.com/video/146105135" width="925"></iframe></div>
+        <h2>Free.</h2>
+        <div id="modal">
+          <div class="content" id="contact">
+            <h2>Contact</h2>
+            <p>63 Loudoun Road<br>London NW8 0DQ<br>UK</p>
+            <p><a href="mailto:contact@iffy.studio">contact@iffy.studio</a></p>
+            <img height="108" src="/img/iffy.png" width="188">
+            <div>Iffy Studio</div>
+          </div>
+          <div class="content" id="press">
+            <h2>Press</h2>
+            <p>Please.</p>
+            <p><a href="mailto:press@iffy.studio">press@iffy.studio</a></p>
+            <img height="108" src="/img/iffy.png" width="188">
+            <div>Iffy Studio</div>
+          </div>
+          <div class="content" id="support">
+            <h2>Support</h2>
+            <p>Anything.</p>
+            <p><a href="mailto:support@iffy.studio">support@iffy.studio</a></p>
+            <img height="108" src="/img/iffy.png" width="188">
+            <div>Iffy Studio</div>
+          </div>
+          <span id="close">×</span>
+        </div>
+      </div>
+      <div id="foot">
+        <div class="inner">
+          <ul><li><a data-id="contact" href="#contact">Contact</a></li><li><a data-id="press" href="#press">Press</a></li><li><a data-id="support" href="#support">Support</a></li></ul>
+          <div id="copyright"><a href="/">© 2020 <span>Iffy Studio</span></a></div>
+        </div>
+      </div>
+      <div id="overlay"></div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script>
+      function __close() {
+        var _i;
+
+        history.pushState( null, null, location.pathname );
+
+        $( '#close' ).fadeOut( 100 );
+
+        $( '#modal, #overlay' ).fadeOut();
+        }
+
+      function __init() {
+        $( document ).keydown( function ( _e ) {
+          if ( _e.keyCode == 27 ) {
+            __close();
+            }
+          } );
+
+        $( '#close' ).click( __close );
+
+        $( '#foot a' ).click( __modal );
+
+        if ( $( location.hash ).length ) {
+          $( location.hash + ', #modal, #overlay' ).show();
+
+          $( '#foot a[href="' + location.hash + '"]' ).trigger( 'click' );
+          }
+        }
+
+      function __modal() {
+        $( '#modal div.content' ).hide();
+
+        $( '#' + $( this ).data( 'id' ) ).show();
+
+        $( '#modal, #overlay' ).fadeIn();
+
+        $( '#close' ).fadeIn( 999 );
+        }
+
+      $( __init );
+    </script>
+<& /site/footer.mas &>\
